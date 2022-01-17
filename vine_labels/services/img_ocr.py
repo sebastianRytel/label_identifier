@@ -20,11 +20,14 @@ class OrigImage:
         """
         return cv2.imread(img_file)
 
+    def __new__(self, *args, **kwargs):
+        print('\n**Original Image has been loaded**\n')
 
 class ImgAsNpArray:
     """
     Creates object np array data structure from post processed image.
     """
+
     @staticmethod
     def open_edited_img(img_file):
         """
@@ -35,11 +38,11 @@ class ImgAsNpArray:
 
 class ImgAsData:
     """
-    Initialize edited (class ImageEdited) object image as np array for further data conversion.
+    Initialize edited (class ImageEditor) object image as np array for further data conversion.
     """
+
     def __init__(self, img_file):
         self.img = ImgAsNpArray.open_edited_img(img_file)
-
 
     def img_to_string(self):
         """
@@ -59,14 +62,13 @@ class ImgPostProcessingOptions:
     Contains set of post processing instructions to be performed on image file loaded as Np array object.
     """
 
-
     @staticmethod
     def inverting_img(img_file) -> str:
         """
         inverting colors of the img. Dark to Light and opposite.
         """
         inverted_image = cv2.bitwise_not(img_file)
-        file_name = 'temp\inverted.jpg'
+        file_name = 'vine_labels\services\static\\temp\inverted.jpg'
         cv2.imwrite(file_name, inverted_image)
         return file_name
 
@@ -76,14 +78,14 @@ class ImgPostProcessingOptions:
         """
         gray_image = cv2.cvtColor(img_file, cv2.COLOR_BGR2GRAY)
         thresh, im_bw = cv2.threshold(gray_image, 100, 250, cv2.THRESH_BINARY)
-        filename_gray = 'temp\gray.jpg'
-        filename_bw = 'temp\\bw.jpg'
+        filename_gray = 'vine_labels\services\static\\temp\gray.jpg'
+        filename_bw = 'vine_labels\services\static\\temp\\bw.jpg'
         cv2.imwrite(filename_gray, gray_image)
         cv2.imwrite(filename_bw, im_bw)
         return filename_bw
 
     @staticmethod
-    def noise_removal(img_file: str, color:bool, filename:str) -> str:
+    def noise_removal(img_file: str, color: bool, filename: str) -> str:
         """
         removing noises from image.
         img_file: String type. Input file to be post processed.
@@ -98,60 +100,66 @@ class ImgPostProcessingOptions:
         cv2.imwrite(filename, noise_reduced_image)
         return filename
 
-class ImgEditOptions:
+
+class ImgEditorOptions:
     """
     Contains set of edit instructions to be performed on loaded image file.
     """
+
     @staticmethod
     def rotating_img(img_file) -> str:
         """
         Rotates image base on the check if it is oriented vertical or horizontal.
         return: String type. Temporary filename after noise removal.
         """
-        filename = 'temp\\rotated.jpg'
+        filename = 'vine_labels\services\static\\temp\\rotated.jpg'
         width, height, channels = img_file.shape
         if width > height:
             img_rotated = cv2.rotate(img_file, cv2.ROTATE_180)
-            ImgEditOptions.save_post_processed_img(filename, img_rotated)
+            ImgEditorOptions.save_post_processed_img(filename, img_rotated)
         return filename
 
     @staticmethod
     def resizing_img(img_file, ratio=None) -> str:
-        filename = 'temp\\resized.jpg'
+        filename = 'vine_labels\services\static\\temp'
         width, height, channels = img_file.shape
-        img_resized = cv2.resize(img_file, (height//ratio, width//ratio))
-        ImgEditOptions.save_post_processed_img(filename, img_resized)
+        img_resized = cv2.resize(img_file, (height // ratio, width // ratio))
+        ImgEditorOptions.save_post_processed_img(filename, img_resized)
         return filename
 
     @staticmethod
     def save_post_processed_img(filename, post_processed_file):
-        if filename not in os.getcwd() + 'temp':
+        if filename not in os.getcwd() + 'vine_labels\services\static\\temp':
             cv2.imwrite(filename, post_processed_file)
 
 
-class ImageEdited:
+class ImageEditor:
     """
     Class creates object which is loaded image file. Class methods are defined as a set of image editorial instructions.
     """
     def __init__(self, img_file):
         self.cv2_opened = OrigImage.cv2_img_obj(img_file)
 
-    @property
     def img_resized(self) -> str:
         """
         Method resizes loaded image file.
         return: String type. Temporary filename of the resized image. Used for further post processing.
         """
-        return ImgEditOptions.resizing_img(self.cv2_opened, ratio=5)
+        return ImgEditorOptions.resizing_img(self.cv2_opened, ratio=5)
+
+    def error(self):
+        if self.cv2_opened is None:
+            print('\nOriginal Image has not been loaded\n')
+
 
 class ImagePostProcessed:
     """
-    Class initialize image object which is image after editorial operations(class ImageEdited). Image is loaded as Np
+    Class initialize image object which is image after editorial operations(class ImageEditor). Image is loaded as NP
     array object.
     """
+
     def __init__(self, img_file):
         self.img = ImgAsNpArray.open_edited_img(img_file)
-
 
     def img_noise_removed(self, filename, color):
         """
@@ -160,38 +168,51 @@ class ImagePostProcessed:
         """
         return ImgPostProcessingOptions.noise_removal(self.img, filename=filename, color=color)
 
-
     def img_greyscaled(self):
         """
-        Method changes color palette in loaded as NP array image file. Color palette is changed from RGB to Black and
+        Method changes color palette in image file loaded as NP array. Color palette is changed from RGB to Black and
         white.
         return: String type. Temporary filename of the post processed image. Used for further text recognition.
         """
         return ImgPostProcessingOptions.greyscaling(self.img)
 
-
     def img_inverted(self):
         return ImgPostProcessingOptions.inverting_img(self.img)
 
+    def error(self):
+        if self.img is None:
+            print('\nEdited Image has not been loaded\n')
+
+class TextFromColorImg:
+
+    filename = 'vine_labels\services\static\\temp\\noises_removed.jpg'
+
+    extracted_text = ''
+
+    @staticmethod
+    def extract_text(img_post_processed):
+        img_post_processed = ImagePostProcessed(img_post_processed)
+        img_noise_removed = img_post_processed.img_noise_removed(filename=TextFromColorImg.filename, color=True)
+        data_color = ImgAsData(img_noise_removed)
+        TextFromGreyImg.extracted_text = data_color.img_to_string()
+        # file1 = open('temp\\my_data_color.txt', 'w')
+        # file1.write(my_data_color.img_to_string())
 
 
-def main():
-    img_edited = ImageEdited('IMG-0964.jpg')
+class TextFromGreyImg:
 
-    img_post_processed = ImagePostProcessed(img_edited.img_resized)
+    filename = 'vine_labels\services\static\\temp\\grey_noises.jpg'
 
-    data_color = img_post_processed.img_noise_removed(filename='temp\\noises_removed.jpg', color=True)
-    my_data_color = ImgAsData(data_color)
+    extracted_text = ''
 
-    img_grey = ImagePostProcessed(img_post_processed.img_greyscaled())
-    data_grey = ImagePostProcessed.img_noise_removed(img_grey, filename='temp\\grey_noises.jpg', color=False)
+    @staticmethod
+    def extract_text(img_post_processed):
+        img_grey = ImagePostProcessed(img_post_processed.img_greyscaled())
+        img_noise_removed = ImagePostProcessed.img_noise_removed(img_grey, filename=TextFromGreyImg.filename,
+                                                                 color=False)
+        data_grey = ImgAsData(img_noise_removed)
+        TextFromGreyImg.extracted_text = data_grey.img_to_string()
+        # file2 = open('temp\my_data_grey.txt', 'w')
+        # file2.write(my_data_grey.img_to_string())
 
-    my_data_grey = ImgAsData(data_grey)
 
-    file1 = open('my_data_color.txt', 'w')
-    file1.write(my_data_color.img_to_string())
-
-    file2 = open('my_data_grey.txt', 'w')
-    file2.write(my_data_grey.img_to_string())
-
-main()
