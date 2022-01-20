@@ -4,7 +4,9 @@ from pytesseract import Output
 from cv2 import cv2
 import numpy as np
 import os
-from matplotlib import pyplot as plt
+from datetime import datetime
+
+from .create_logs import LogFile
 
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
@@ -19,9 +21,6 @@ class OrigImage:
         Loads original image for edit and cv2 postprocessing.
         """
         return cv2.imread(img_file)
-
-    def __new__(self, *args, **kwargs):
-        print('\n**Original Image has been loaded**\n')
 
 class ImgAsNpArray:
     """
@@ -68,7 +67,7 @@ class ImgPostProcessingOptions:
         inverting colors of the img. Dark to Light and opposite.
         """
         inverted_image = cv2.bitwise_not(img_file)
-        file_name = 'vine_labels\services\static\\temp\inverted.jpg'
+        file_name = 'vine_labels\static\\temp\inverted.jpg'
         cv2.imwrite(file_name, inverted_image)
         return file_name
 
@@ -78,8 +77,8 @@ class ImgPostProcessingOptions:
         """
         gray_image = cv2.cvtColor(img_file, cv2.COLOR_BGR2GRAY)
         thresh, im_bw = cv2.threshold(gray_image, 100, 250, cv2.THRESH_BINARY)
-        filename_gray = 'vine_labels\services\static\\temp\gray.jpg'
-        filename_bw = 'vine_labels\services\static\\temp\\bw.jpg'
+        filename_gray = 'vine_labels\static\\temp\gray.jpg'
+        filename_bw = 'vine_labels\static\\temp\\bw.jpg'
         cv2.imwrite(filename_gray, gray_image)
         cv2.imwrite(filename_bw, im_bw)
         return filename_bw
@@ -112,7 +111,7 @@ class ImgEditorOptions:
         Rotates image base on the check if it is oriented vertical or horizontal.
         return: String type. Temporary filename after noise removal.
         """
-        filename = 'vine_labels\services\static\\temp\\rotated.jpg'
+        filename = 'vine_labels\static\\temp\\rotated.jpg'
         width, height, channels = img_file.shape
         if width > height:
             img_rotated = cv2.rotate(img_file, cv2.ROTATE_180)
@@ -121,15 +120,25 @@ class ImgEditorOptions:
 
     @staticmethod
     def resizing_img(img_file, ratio=None) -> str:
-        filename = 'vine_labels\services\static\\temp'
+        """
+        Resizes image using ratio parameter passed into function as argument.
+        Resizing is a division of the width and height by ratio.
+        return: name of the resized image saved as *.jpg file.
+        """
+        filepath = 'vine_labels\static\\temp\\resized.jpg'
         width, height, channels = img_file.shape
         img_resized = cv2.resize(img_file, (height // ratio, width // ratio))
-        ImgEditorOptions.save_post_processed_img(filename, img_resized)
-        return filename
+        ImgEditorOptions.save_post_processed_img(filepath, img_resized)
+        LogFile.write_log(f""
+                            f"\n{datetime.now()}\n"
+                            f"File resized.jpg has been resized using ratio={ratio}\n"
+                            f"File is saved in vine_labels\static\\temp\\resized.jpg folder\n")
+        return filepath
+
 
     @staticmethod
     def save_post_processed_img(filename, post_processed_file):
-        if filename not in os.getcwd() + 'vine_labels\services\static\\temp':
+        if filename not in os.getcwd() + 'vine_labels\static\\temp':
             cv2.imwrite(filename, post_processed_file)
 
 
@@ -166,6 +175,9 @@ class ImagePostProcessed:
         Method removes noises from loaded as NP array image file.
         return: String type. Temporary filename of the post processed image. Used for further text recognition.
         """
+        LogFile.write_log(f""
+                            f"\n{datetime.now()}\n"
+                            f"Noises has been removed from {filename}\n")
         return ImgPostProcessingOptions.noise_removal(self.img, filename=filename, color=color)
 
     def img_greyscaled(self):
@@ -184,35 +196,41 @@ class ImagePostProcessed:
             print('\nEdited Image has not been loaded\n')
 
 class TextFromColorImg:
-
-    filename = 'vine_labels\services\static\\temp\\noises_removed.jpg'
-
-    extracted_text = ''
+    """
+    Class creates string object which is extracted text from color image.
+    """
+    filename = 'vine_labels\static\\temp\\noises_removed.jpg'
 
     @staticmethod
     def extract_text(img_post_processed):
+        """
+        Class method instantiate object which is NP array object.
+        return: extracted text from color image.
+        """
         img_post_processed = ImagePostProcessed(img_post_processed)
         img_noise_removed = img_post_processed.img_noise_removed(filename=TextFromColorImg.filename, color=True)
         data_color = ImgAsData(img_noise_removed)
-        TextFromGreyImg.extracted_text = data_color.img_to_string()
-        # file1 = open('temp\\my_data_color.txt', 'w')
-        # file1.write(my_data_color.img_to_string())
+        return data_color.img_to_string()
 
 
 class TextFromGreyImg:
-
-    filename = 'vine_labels\services\static\\temp\\grey_noises.jpg'
-
-    extracted_text = ''
+    """
+    Class creates string object which is extracted text from grey image.
+    """
+    filename = 'vine_labels\static\\temp\\grey_noises.jpg'
 
     @staticmethod
     def extract_text(img_post_processed):
+        """
+        Class method instantiate object which is NP array object.
+        return: extracted text from color image.
+        """
         img_grey = ImagePostProcessed(img_post_processed.img_greyscaled())
         img_noise_removed = ImagePostProcessed.img_noise_removed(img_grey, filename=TextFromGreyImg.filename,
                                                                  color=False)
         data_grey = ImgAsData(img_noise_removed)
-        TextFromGreyImg.extracted_text = data_grey.img_to_string()
-        # file2 = open('temp\my_data_grey.txt', 'w')
-        # file2.write(my_data_grey.img_to_string())
+        return data_grey.img_to_string()
+
+
 
 

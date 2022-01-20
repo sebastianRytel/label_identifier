@@ -1,0 +1,170 @@
+
+2022-01-19 17:23:22.631633
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:23:22.667624
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:23:24.735182
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:24:14.842340
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:24:14.877354
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:24:16.860869
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:26:35.172155
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:26:35.206158
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:26:37.300511
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:27:32.977233
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:27:33.011225
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:27:35.073141
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:28:53.345606
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:28:53.381225
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:28:55.394101
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:33:10.216766
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:33:10.250755
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:33:12.340116
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:35:03.042108
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:35:03.079111
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:35:05.172051
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:35:27.819921
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:35:27.851920
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:35:29.799938
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:35:54.878273
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:35:54.916146
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:35:56.943859
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:36:46.190154
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:36:46.224153
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:36:48.175107
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:37:02.252484
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:37:02.270491
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:37:03.967563
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:37:18.692277
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:37:18.734280
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:37:20.826853
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:37:54.637648
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:37:54.670649
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:37:56.652230
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:38:06.272168
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:38:06.306173
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:38:08.344569
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:38:45.758318
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:38:45.792326
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:38:47.800089
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:40:24.410955
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:40:24.444957
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:40:26.370357
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
+
+2022-01-19 17:41:12.142764
+File resized.jpg has been resized using ratio=5
+File is saved in vine_labels\static\temp\resized.jpg folder
+
+2022-01-19 17:41:12.176748
+Noises has been removed from vine_labels\static\temp\noises_removed.jpg
+
+2022-01-19 17:41:14.217511
+Noises has been removed from vine_labels\static\temp\grey_noises.jpg
